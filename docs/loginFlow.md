@@ -1,3 +1,21 @@
+```mermaid
+sequenceDiagram
+    You->>Nubank Server: GET /discovery
+    Nubank Server-->>You: Login Endpoint
+    
+    You->>Nubank Server: GET /app/discovery
+    Nubank Server-->>You: Lift Endpoint
+    
+    You->>Nubank Server: POST login
+    Nubank Server-->>You: Login Access Token
+    
+    You->>Nubank Server: POST lift
+    Nubank Server-->>You: Lift Access Token & Endpoints
+    
+    You->>Nubank Server: GET Bills Summary
+    Nubank Server-->>You: Bills Summary
+```
+
 ### 1. Discovery
 
 This endpoint will return the available endpoints for unauthenticated users
@@ -154,15 +172,15 @@ function generateSSID() {
 
 ### 4 - Check `lift`
 
-This endpoint needs to be checked every second, it will return a `404` while the qrcode isn't validated
+This endpoint needs to be checked every second, it will return a `404` while the qrcode isn't validated with the Nubank App
 
-> GET https://prod-global-webapp-proxy.nubank.com.br/api/proxy/AJxL5LD1_tXTsdl5luooo69vWaMYPjMJww.aHR0cHM6Ly9wcm9kLWdsb2JhbC1hdXRoLm51YmFuay5jb20uYnIvYXBpL2xpZnQ
+> POST https://prod-global-webapp-proxy.nubank.com.br/api/proxy/AJxL5LD1_tXTsdl5luooo69vWaMYPjMJww.aHR0cHM6Ly9wcm9kLWdsb2JhbC1hdXRoLm51YmFuay5jb20uYnIvYXBpL2xpZnQ
 
 #### Headers:
 
 ````json
 {
-  "Authprization": "Bearer [TOKEN]"
+  "Authorization": "Bearer [TOKEN]"
 }
 ````
 
@@ -187,7 +205,7 @@ This endpoint needs to be checked every second, it will return a `404` while the
 
 ````json
 {
-  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjIwMTUtMTItMDRUMTc6MzY6MjIuNjY0LXU5ZC1ldWN1Ri1zQUFBRlJiaER3aUEifQ.eyJhdWQiOiJvdGhlci5jb250YSIsInN1YiI6IjViNzMyNTM2LTU0NmItNDE1Ni1hNGEwLTU3ZDg3MGZiZGQ0YSIsImlzcyI6Imh0dHBzOlwvXC93d3cubnViYW5rLmNvbS5iciIsImV4cCI6MTY1MTUzOTk2Niwic2NvcGUiOiJhdXRoXC91c2VyIHVzZXIiLCJqdGkiOiJ1dnNoYnFhZG5YWUFBQUdBWTJkMzFBIiwiYWNsIjpudWxsLCJ2ZXJzaW9uIjoiMiIsImlhdCI6MTY1MDkzNTE2Nn0.TAIc__bDD_6ptQZDNSGfKj_pHV99potM5Cp3L1UJeVUoYR8gBHMTNOM_odNjnDS6mwPOqpRFd_du9az33m_eDmP7TGP20JztWChXvfsJY85d4Wc9rnVgOSK-v8K4m7--k6wNPH3-2VBORcHNGhxtbnZ6ytjgzNadgIEHyqlgYDOFm9rqgOwG5VnvnFoZBcrqKBCjE00L1dvAbRYc800Ql6cf67UB-MrkctqWB6KSZN46IRw2kJtbDgGHROBjZszouIuZWBZQLz2R8rYFUqcP8f6hJYi7MdYpLpf1qWYnsAAVbSvyswbfLYEJ0-BafosyNByYvX4PB78mMu6GC0SXfA",
+  "access_token": "[TOKEN]",
   "token_type": "bearer",
   "_links": {
     "fog_wall": {
