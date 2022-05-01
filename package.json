@@ -1,15 +1,14 @@
 {
   "name": "@charlesaugust44/nubank-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "This is a package to easly integrate the nubank web api, supporting QRCode login.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jest.config.js",
     "build": "tsc",
     "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint"
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
