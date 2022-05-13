@@ -2,6 +2,7 @@ import Href from "./Href";
 import Summary from "./Summary";
 
 export default interface BillSummary {
+    id?: string,
     state: string,
     summary: Summary,
     _links: {

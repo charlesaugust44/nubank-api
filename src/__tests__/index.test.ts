@@ -42,3 +42,11 @@ test('Fetch open bill', async () => {
 
     expect(bill.state).toBe('open');
 },30000);
+
+test('Fetch all events', async () => {
+    expect(Nubank.status).toBe(NubankStatus.AUTHORIZED);
+
+    let events = await Nubank.fetchEvents();
+
+    expect(events.length).toBeGreaterThan(2000);
+},30000);

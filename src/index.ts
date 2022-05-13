@@ -8,6 +8,8 @@ import BillSummary from "./Models/BillSummary";
 import Bill from "./Models/Bill";
 import BillSummaryContainer from "./Models/BillSummaryContainer";
 import BillContainer from "./Models/BillContainer";
+import Events from "./Models/Events";
+import {EventItem} from "./Models/EventItem";
 
 const QRCode = require("qrcode");
 
@@ -121,6 +123,18 @@ export class Nubank {
             axios.get<BillContainer>(billFragment._links.self.href, Nubank.getRequestConfig())
                 .then((response => {
                     resolve(response.data.bill);
+                }))
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    static fetchEvents(): Promise<[EventItem]> {
+        return new Promise((resolve, reject) => {
+            axios.get<Events>(Nubank.liftResponse._links.events.href, Nubank.getRequestConfig())
+                .then((response => {
+                    resolve(response.data.events);
                 }))
                 .catch(error => {
                     reject(error);
