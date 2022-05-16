@@ -1,8 +1,6 @@
 import {Nubank, NubankStatus} from '../index'
 
-beforeAll(async () => {
-    expect(Nubank.status).toBe(NubankStatus.UNAUTHORIZED);
-
+async function login() {
     await Nubank.login('CPF', 'PASSWORD');//TODO: Add Credentials before testing
     await Nubank.printQRCode();
 
@@ -21,6 +19,15 @@ beforeAll(async () => {
                 return;
             }
         }
+    }
+}
+
+beforeAll(async () => {
+    expect(Nubank.status).toBe(NubankStatus.UNAUTHORIZED);
+
+    if (!Nubank.loadData()) {
+        await login();
+        Nubank.storeData();
     }
 
     expect(Nubank.status).toBe(NubankStatus.AUTHORIZED);
@@ -41,7 +48,7 @@ test('Fetch open bill', async () => {
     let bill = await Nubank.fetchBill(billsSummary[0]);
 
     expect(bill.state).toBe('open');
-},30000);
+}, 30000);
 
 test('Fetch all events', async () => {
     expect(Nubank.status).toBe(NubankStatus.AUTHORIZED);
@@ -49,4 +56,4 @@ test('Fetch all events', async () => {
     let events = await Nubank.fetchEvents();
 
     expect(events.length).toBeGreaterThan(2000);
-},30000);
+}, 30000);

@@ -10,8 +10,10 @@ import BillSummaryContainer from "./Models/BillSummaryContainer";
 import BillContainer from "./Models/BillContainer";
 import Events from "./Models/Events";
 import {EventItem} from "./Models/EventItem";
+import {existsSync, readFileSync, writeFileSync} from "fs";
 
 const QRCode = require("qrcode");
+const nubankConfig = './nubank.json';
 
 const REQUEST_HEADER = {
     'Content-Type': 'application/json',
@@ -194,4 +196,24 @@ export class Nubank {
         return "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, rand);
     }
 
+    public static loadData(): boolean {
+        if (!existsSync(nubankConfig))
+            return false;
+
+        let serialized = readFileSync(nubankConfig, {encoding: 'utf8', flag: 'r'});
+        let data = JSON.parse(serialized);
+
+        Nubank.liftResponse = data.liftResponse;
+        Nubank.loginResponse = data.loginResponse;
+        Nubank.status = NubankStatus.AUTHORIZED;
+
+        return true;
+    }
+
+    public static storeData() {
+        writeFileSync(nubankConfig, JSON.stringify({
+            liftResponse: Nubank.liftResponse,
+            loginResponse: Nubank.loginResponse
+        }));
+    }
 }

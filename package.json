@@ -1,7 +1,7 @@
 {
   "name": "@charlesaugust44/nubank-api",
-  "version": "1.0.2",
-  "description": "This is a package to easly integrate the nubank web api, supporting QRCode login.",
+  "version": "1.0.3",
+  "description": "This is a package to easily integrate the nubank web api, supporting QRCode login.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
